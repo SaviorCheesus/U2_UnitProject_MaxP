@@ -1,13 +1,16 @@
 float x = width/2;
 float y = height/2;
-float wallWidth = 20;
-int level = 1;
-int R;
-int G;
-int B;
-int C = 255;
+float wallWidth = 40;
+int level = 6;
+float gravY;
+float gravX;
+float R;
+float G;
+float B;
+float C = 255;
 boolean isSafe;
 boolean locked = true;
+
 
 void setup()
 {
@@ -37,35 +40,35 @@ void wallEffects()
   {
     wallWidth -= 2;
   }
-  else
-  {
-    wallWidth = wallWidth + (random(-1,+1)); 
-  }
+
+  wallWidth = wallWidth + random(-1+1); 
 }
 
 void controls()
 {
-  if (keyPressed == true)
   {
-    if (keyCode == RIGHT)
+    if (keyPressed == true)
     {
-      x = x +10;
+      if (keyCode == RIGHT)
+      {
+        x = x +10;
+      }      
+      if (keyCode == LEFT)
+      {
+        x = x -10;
+      }    
+      if (keyCode == UP)
+      {
+        y = y -10;
+      }  
+      if (keyCode == DOWN)
+      {
+        y = y +10;
+      }  
     }
-    
-    if (keyCode == LEFT)
-    {
-      x = x -10;
-    }    
-    if (keyCode == UP)
-    {
-      y = y -10;
-    }  
-    if (keyCode == DOWN)
-    {
-      y = y +10;
-    }  
   }
 }
+
 
 void walls()
 {  
@@ -120,7 +123,7 @@ void levels()
     float goalY = height - 100;
     ellipse (goalX, goalY, 140, 140);
     
-    if (x >= goalX -160 && y >= goalY -160 && mousePressed == true)
+    if (dist (x, y, goalX, goalY) <= 95 && mousePressed == true)
     {
       level = 2;
     }
@@ -162,7 +165,7 @@ void levels()
     float goalY = 100;
     ellipse (goalX, goalY, 140, 140);
     
-    if (x <= goalX +140 && y <= goalY + 140 && mousePressed == true)
+    if (dist (x, y, goalX, goalY) <= 95 && mousePressed == true)
     {
       level = 3;
     }
@@ -205,6 +208,10 @@ void levels()
     {
       isSafe = true;
     }
+    else if (x <= 580 && x >= 400 && y >= 600 & y <= 780)
+    {
+      isSafe = true;
+    }
     else
     {
       isSafe = false;
@@ -218,8 +225,7 @@ void levels()
       }
     }
 
-     
-     
+      
     fill (C);
     float goalX = 490;
     float goalY = 690;
@@ -230,7 +236,65 @@ void levels()
       level = 4;
     }
   }
+  
+  
+  if (level == 4)
+  {    
+    R = 255;
+    G = 104;
+    B = 77;
+    C = 25;
+    
+    fill (225);
+    rect (400, 600, 180, 280 + wallWidth);
+    if (x <= 580 && x >= 400 && y >= 600)
+    {
+      isSafe = true;
+    }
+    else
+    {
+      isSafe = true;
+    }
+  }
+  
+  
+  if (level == 5)
+  {
+    R = 165;
+    G = 58;
+    B = 121;
+    C = 0;
+    
+    if (x <= 580 && x >= 400 && y >= 600)
+    {
+      isSafe = true;
+    }
+    else
+    {
+      isSafe = true;
+    }
+  }
+  
+  
+  if (level == 6)
+  {
+    R = 127 + (random(-2,2));
+    G = 127 + (random(-2,2));
+    B = 127 + (random(-2,2));
+    C = 127 + (random(-2,2));
+    
+    if (x <= 580 && x >= 400 && y >= 600)
+    {
+      isSafe = true;
+    }
+    else
+    {
+      isSafe = true;
+    }
+  }
 }
+
+
 
 void gameOver()
 {
