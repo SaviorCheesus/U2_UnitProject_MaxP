@@ -1,13 +1,10 @@
 float x = width/2;
 float y = height/2;
 float wallWidth = 40;
-int level = 4;
+int level = 1;
 int gravityMode;
 // gravity 0 : no gravity
 // gravity 1 : downwards gravity
-// gravity 2 : upwards gravity
-// gravity 3 : rightwards gravity
-// gravity 4 : leftwards gravity
 float gravY;
 float gravX;
 float R;
@@ -482,24 +479,7 @@ void levels()
   
   if (level == 5)
   {
-    R = 165;
-    G = 58;
-    B = 121;
-    C = 0;
-    
-    if (x <= 580 && x >= 400 && y >= 600)
-    {
-      isSafe = true;
-    }
-    else
-    {
-      isSafe = true;
-    }
-  }
-  
-  
-  if (level == 6)
-  {
+    gravityMode = 0;
     R = 127 + (random(-2,2));
     G = 127 + (random(-2,2));
     B = 127 + (random(-2,2));
@@ -513,6 +493,29 @@ void levels()
     {
       isSafe = true;
     }
+    
+    fill (0);
+    float goalX = random(95,width - 95);
+    float goalY = random(95,height - 95);
+    ellipse (goalX, goalY, 100, 100);
+    
+    if (dist (x, y, goalX, goalY) <= 45 && mousePressed == true)
+    {
+      level = 6;
+    }
+  }
+  
+  if (level == 6)
+  {
+    R = 0;
+    G = 0;
+    B = 0;
+    C = 255; 
+    
+    gravityMode = 0;
+    textSize(60);
+    text ("YOU DID A WIN", 100, 100);
+    
   }
 }
 
